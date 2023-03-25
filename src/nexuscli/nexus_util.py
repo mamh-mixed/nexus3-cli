@@ -234,7 +234,7 @@ def get_dst_path_and_file(source: str, destination: str) -> Tuple[str, str]:
     :param destination: the destination path. When this is a path to a file, the returned
         destination is the base path of this value and the returned file name matches this one.
     """
-    destination = os.path.normpath(destination or REMOTE_PATH_SEPARATOR)
+    destination = os.path.normpath(destination or REMOTE_PATH_SEPARATOR).replace(os.sep, REMOTE_PATH_SEPARATOR)
 
     if destination.endswith(REMOTE_PATH_SEPARATOR):
         dst_file = os.path.basename(source)
