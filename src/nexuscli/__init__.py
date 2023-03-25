@@ -1,8 +1,10 @@
 import logging
 import os
-
+import urllib3
 from nexuscli.nexus_config import NexusConfig
 from nexuscli.nexus_client import NexusClient
+
+urllib3.disable_warnings()
 
 LOG_LEVEL = os.environ.get('LOG_LEVEL', 'WARNING').upper()
 
