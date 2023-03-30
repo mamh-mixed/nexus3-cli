@@ -22,7 +22,11 @@ class ScriptCollection(BaseCollection):
         elif resp.status_code == 404:
             return False
         else:
-            raise exception.NexusClientAPIError(resp.content)
+            if resp.content:
+                raise exception.NexusClientAPIError(resp.content)
+            else:
+                raise exception.NexusClientAPIError(f'verify {name} existence fail: {resp.reason}, {resp.status_code}')
+
 
     def get(self, name):
         """
