@@ -48,7 +48,10 @@ class BaseCollection:
         endpoint = f'script/{script_name}/run'
         resp = self._http.post(endpoint, headers=headers, data=data)
         if resp.status_code != 200:
-            raise exception.NexusClientAPIError(resp.content)
+            if resp.content:
+                raise exception.NexusClientAPIError(resp.content)
+            else:
+                raise exception.NexusClientAPIError(f'run script {script_name} fail: {resp.reason}, {resp.status_code}')
 
         return resp.json()
 
